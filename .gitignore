@@ -1,0 +1,7 @@
+/target
+perf.data
+perf.data.old
+flamegraph.svg
+.vscode/
+/infospace/
+/infograph-lib/tags
