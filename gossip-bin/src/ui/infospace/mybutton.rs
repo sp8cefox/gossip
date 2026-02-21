@@ -52,6 +52,7 @@ pub fn update(app: &mut GossipUi, ctx: &Context, _frame: &mut Frame, ui: &mut Ui
     ui.horizontal(|ui| {
         if ui.button("Choose icon").clicked() {
             app.cat_icons_toggled = !app.cat_icons_toggled;
+            app.cat_icons_scrolled = !app.cat_icons_scrolled;
         }
         ui.label(app.cat_icon.clone());
     });
@@ -528,9 +529,9 @@ fn special_char_name(chr: char) -> Option<&'static str> {
         '\u{F81C}' => Some("eight.sinf"),
         '\u{F81D}' => Some("nine.sinf"),
         //Easter eggs
-        '\u{1F331}' => Some("basil"),
-//        '\u{1F919}' => Some("pura vida"),
-        '\u{2600}' => Some("GM"),
+        '\u{1F331}' => Some("basil/seedling"),
+        '\u{1F919}' => Some("pura vida"),
+        '\u{2600}' => Some("gm/sun"),
 
         _ => None,
     }
@@ -582,6 +583,12 @@ fn make_icon_picker(app: &mut GossipUi, ui: &mut Ui){
                     }
                 }
             });
+           // Scroll to the last position
+            if app.cat_icons_scrolled == false {
+                ui.scroll_to_cursor(Some(egui::Align::BOTTOM));
+                app.cat_icons_scrolled = true;
+            }
+
         });
     }
 

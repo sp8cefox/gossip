@@ -679,6 +679,7 @@ struct GossipUi {
            has_cat_elements_loaded: u8,
            has_cat_combo_loaded: bool,
            cat_icons_toggled: bool,
+           cat_icons_scrolled: bool,
            fb1: FontBook1,
 }
 
@@ -980,6 +981,7 @@ combo_triple_list: InfoTable::new(),
            has_cat_elements_loaded: 0,
            has_cat_combo_loaded: false,
            cat_icons_toggled: false,
+           cat_icons_scrolled: false,
             fb1: FontBook1::default(),
         }
     }
