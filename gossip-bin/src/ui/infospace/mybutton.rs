@@ -22,6 +22,11 @@ pub fn update(app: &mut GossipUi, ctx: &Context, _frame: &mut Frame, ui: &mut Ui
 
     if app.cat_icons_toggled {
         make_icon_picker(app, ui);
+    } else {
+
+        if app.cat_icons_scrolled {
+            app.cat_icons_scrolled = false;
+        }
     }
     
     //TODO: implement with one of these...
@@ -31,7 +36,7 @@ pub fn update(app: &mut GossipUi, ctx: &Context, _frame: &mut Frame, ui: &mut Ui
     ui.vertical(
         |ui|{ui.add_space(5.0);}
     );
-    ui.heading("Make your own button");
+    ui.heading("Make your own Stamper");
 
     ui.add_space(12.0);
 
@@ -52,7 +57,7 @@ pub fn update(app: &mut GossipUi, ctx: &Context, _frame: &mut Frame, ui: &mut Ui
     ui.horizontal(|ui| {
         if ui.button("Choose icon").clicked() {
             app.cat_icons_toggled = !app.cat_icons_toggled;
-            app.cat_icons_scrolled = !app.cat_icons_scrolled;
+//            app.cat_icons_scrolled = !app.cat_icons_scrolled;
         }
         ui.label(app.cat_icon.clone());
     });
@@ -78,7 +83,7 @@ pub fn update(app: &mut GossipUi, ctx: &Context, _frame: &mut Frame, ui: &mut Ui
     ui.add(
         text_edit_multiline!(app, app.cat_desc)
             .id_source("desc_compose_area")
-            .hint_text("Type your description of the button here")
+            .hint_text("Type in a description of your stamp here")
             .desired_width(f32::INFINITY)
             .lock_focus(true)
     ,);
@@ -110,7 +115,7 @@ pub fn update(app: &mut GossipUi, ctx: &Context, _frame: &mut Frame, ui: &mut Ui
     ui.add_space(12.0);
         
     ui.horizontal(|ui| {
-            ui.label("Watch a button: ");
+            ui.label("Get info on a Stamper, and watch has been stamped with it: ");
 
             cat_combo(app, ui);
 
@@ -118,7 +123,7 @@ pub fn update(app: &mut GossipUi, ctx: &Context, _frame: &mut Frame, ui: &mut Ui
                 load_cat_elements(app, ui);//TODO:find a way to load once per selection
             }
             
-            if ui.button("Delete selected button").clicked() {
+            if ui.button("Delete selected Stamper").clicked() {
                 delete_selected_cat(app);
                 reset_fields(app); 
             }
@@ -285,7 +290,7 @@ fn render_advanced_settings(app: &mut GossipUi, ui: &mut Ui) {
         ui.add_space(12.0);
         
         ui.horizontal(|ui| {
-            ui.label("Choose another button for constraint: ");
+            ui.label("Choose another stamp as constraint: ");
 
             cat_condi_combo(app, ui);
 
@@ -529,9 +534,9 @@ fn special_char_name(chr: char) -> Option<&'static str> {
         '\u{F81C}' => Some("eight.sinf"),
         '\u{F81D}' => Some("nine.sinf"),
         //Easter eggs
-        '\u{1F331}' => Some("basil/seedling"),
+        '\u{1F331}' => Some("basil / seedling"),
         '\u{1F919}' => Some("pura vida"),
-        '\u{2600}' => Some("gm/sun"),
+        '\u{2600}' => Some("gm / sun"),
 
         _ => None,
     }
@@ -602,6 +607,7 @@ fn reset_fields(app: &mut GossipUi) {
     app.loaded_cat_elements= HashMap::new();
     app.cat_name= String::new();
     app.cat_icon= String::new(); 
+    app.cat_icons_scrolled = false;
     app.cat_desc= String::new();
     //new cat fields
     app.cat_list= CatList::new();

@@ -247,7 +247,7 @@ impl Page {
             Page::ThemeTest => (SubMenu::Help.as_str(), "Theme Test".into()),
             Page::Wizard(wp) => ("Wizard", wp.as_str().to_string()),
             Page::InfoTriple => (SubMenu::Infospace.as_str(), "InfoTriple".into()),
-            Page::MyButton(_) =>  (SubMenu::Infospace.as_str(), "MyButton".into()),
+            Page::MyButton(_) =>  (SubMenu::Infospace.as_str(), "Stampr".into()),
         }
     }
 
